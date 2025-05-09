@@ -5,23 +5,16 @@ import FeedbackInput from './components/FeedbackInput.vue'
 <template>
   <div>
     <h1 class="page-title">Feedback Manager</h1>
-    <h3 class="subtitle">Enter New Feedback:</h3>
-    <FeedbackInput />
+    <div class="feedback-container">
+      <h3 class="subtitle">Enter New Feedback:</h3>
+      <FeedbackInput />
+    </div>
     <h3 class="subtitle">Your Feedback:</h3>
   </div>
 </template>
 
 <style scoped>
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.vue:hover {
-  filter: drop-shadow(0 0 2em #42b883aa);
+.feedback-container {
+  width: 70%;
 }
 </style>
