@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import HelloWorld from './components/HelloWorld.vue'
+import FeedbackInput from './components/FeedbackInput.vue'
 </script>
 
 <template>
   <div>
     <h1 class="page-title">Feedback Manager</h1>
     <h3 class="subtitle">Enter New Feedback:</h3>
-
+    <FeedbackInput />
     <h3 class="subtitle">Your Feedback:</h3>
   </div>
 </template>
