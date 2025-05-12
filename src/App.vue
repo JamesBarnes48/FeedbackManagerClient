@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import FeedbackInput from './components/FeedbackInput.vue'
+import AllFeedbackContainer from './components/AllFeedbackContainer.vue';
 </script>
 
 <template>
@@ -10,6 +11,7 @@ import FeedbackInput from './components/FeedbackInput.vue'
       <FeedbackInput />
     </div>
     <h3 class="subtitle">Your Feedback:</h3>
+      <AllFeedbackContainer />
   </div>
 </template>
 
