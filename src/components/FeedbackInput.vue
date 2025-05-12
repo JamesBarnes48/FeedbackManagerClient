@@ -7,15 +7,17 @@
         props: {},
         setup(props) {
             let enjoymentInput = ref(true),
-            expectationInput = ref(2),
+            ratingInput = ref(0),
+            expectationInput = ref('agree'),
             detailsInput = ref('');
 
-            const submitFeedback = (feedbackData: [boolean, number, string]) => {
+            const submitFeedback = (feedbackData: [boolean, number, string, string]) => {
                 console.info(feedbackData);
             };
 
             return {
                 enjoymentInput,
+                ratingInput,
                 expectationInput,
                 detailsInput,
                 submitFeedback
@@ -34,20 +36,30 @@
             </select>
         </div>
         <div class="input-row">
-            <label>Would you agree that this product met your expectations?</label>
-            <select v-model.number="expectationInput">
-                <option value="0">Strongly disagree</option>
-                <option value="1">Disagree</option>
-                <option value="2">Neutral</option>
-                <option value="3">Agree</option>
-                <option value="4">Strongly agree</option>
+            <label>What would you rate the product out of 5 stars?</label>
+            <select v-model.number="ratingInput">
+                <option value="0">1</option>
+                <option value="1">2</option>
+                <option value="2">3</option>
+                <option value="3">4</option>
+                <option value="4">5</option>
+            </select>
+        </div>
+        <div class="input-row">
+            <label>Would you agree that the product meets your expectations?</label>
+            <select v-model="expectationInput">
+                <option value="strongly disagree">Strongly disagree</option>
+                <option value="disagree">Disagree</option>
+                <option value="neither agree nor disagree">Neither agree nor disagree</option>
+                <option value="agree">Agree</option>
+                <option value="strongly agree">Strongly agree</option>
             </select>
         </div>
         <div class="input-row">
             <label>Please elaborate in more detail:</label>
             <input v-model="detailsInput" type="text" />
         </div>
-        <span class="submit-button" @click="submitFeedback([enjoymentInput, expectationInput, detailsInput])">Submit</span>
+        <span class="submit-button" @click="submitFeedback([enjoymentInput, ratingInput, expectationInput, detailsInput])">Submit</span>
     </div>
 </template>
 
