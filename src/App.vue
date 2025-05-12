@@ -2,11 +2,13 @@
 import { ref } from 'vue';
 import FeedbackInput from './components/FeedbackInput.vue'
 import AllFeedbackContainer from './components/AllFeedbackContainer.vue';
+import type { Feedback } from './interfaces/Feedback';
 
-const formData = ref([]);
+const feedbacks = ref<Feedback[]>([]);
 
-function updateFeedbacks(data: {enjoymentInput: boolean, ratingInput: number, expectationInput: string, detailsInput: string}){
-  console.info(formData.value);
+function updateFeedbacks(data: Feedback){
+  feedbacks.value.push(data);
+  console.info(feedbacks.value);
 }
 
 </script>
