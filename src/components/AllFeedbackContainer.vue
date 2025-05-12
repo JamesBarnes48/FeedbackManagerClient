@@ -1,8 +1,9 @@
 <script lang="ts">
-    
+    import FeedbackContainer from './FeedbackContainer.vue';
+
     export default {
         name: 'AllFeedbackContainer',
-        components: {},
+        components: {FeedbackContainer},
         props: {},
         setup() {
             return {
@@ -15,9 +16,11 @@
     <div class="all-feedback-container">
         <div>
             <h3>Positive Feedback</h3>
+            <FeedbackContainer />
         </div>
         <div>
             <h3>Negative Feedback</h3>
+            <FeedbackContainer />
         </div>
     </div>
 </template>
