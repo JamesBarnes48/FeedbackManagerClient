@@ -5,14 +5,14 @@
         name: 'FeedbackInput',
         components: {},
         props: {},
-        setup(props) {
+        setup(props, {emit}) {
             let enjoymentInput = ref(true),
             ratingInput = ref(0),
             expectationInput = ref('agree'),
             detailsInput = ref('');
 
-            const submitFeedback = (feedbackData: [boolean, number, string, string]) => {
-                console.info(feedbackData);
+            const submitFeedback = (feedbackData: {enjoymentInput: boolean, ratingInput: number, expectationInput: string, detailsInput: string}) => {
+                emit('submitFeedback', feedbackData);
             };
 
             return {
@@ -59,7 +59,7 @@
             <label>Please elaborate in more detail:</label>
             <input v-model="detailsInput" type="text" />
         </div>
-        <span class="submit-button" @click="submitFeedback([enjoymentInput, ratingInput, expectationInput, detailsInput])">Submit</span>
+        <span class="submit-button" @click="submitFeedback({enjoymentInput, ratingInput, expectationInput, detailsInput})">Submit</span>
     </div>
 </template>
 
