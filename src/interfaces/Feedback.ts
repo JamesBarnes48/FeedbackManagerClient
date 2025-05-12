@@ -1,5 +1,6 @@
 export interface Feedback{
-    expectation: number,
+    rating: number
+    expectation: string,
     details: string,
     toString(): string
 }
