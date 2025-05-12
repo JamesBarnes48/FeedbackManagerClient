@@ -1,5 +1,8 @@
 <script lang="ts">
     import {ref} from 'vue';
+    import type { Feedback } from '../interfaces/Feedback';
+    import { PositiveFeedback } from '../classes/PositiveFeedback';
+    import { NegativeFeedback } from '../classes/NegativeFeedback';
 
     export default {
         name: 'FeedbackInput',
@@ -11,8 +14,11 @@
             expectationInput = ref('agree'),
             detailsInput = ref('');
 
-            const submitFeedback = (feedbackData: {enjoymentInput: boolean, ratingInput: number, expectationInput: string, detailsInput: string}) => {
-                emit('submitFeedback', feedbackData);
+            const submitFeedback = (feedbackData: {enjoyment: boolean, rating: number, expectation: string, details: string}) => {
+                let data: Feedback = !!feedbackData.enjoyment? 
+                    new PositiveFeedback(feedbackData.rating, feedbackData.expectation, feedbackData.details): 
+                    new NegativeFeedback(feedbackData.rating, feedbackData.expectation, feedbackData.details);
+                emit('submitFeedback', data);
             };
 
             return {
@@ -59,7 +65,7 @@
             <label>Please elaborate in more detail:</label>
             <input v-model="detailsInput" type="text" />
         </div>
-        <span class="submit-button" @click="submitFeedback({enjoymentInput, ratingInput, expectationInput, detailsInput})">Submit</span>
+        <span class="submit-button" @click="submitFeedback({enjoyment: enjoymentInput, rating: ratingInput, expectation: expectationInput, details: detailsInput})">Submit</span>
     </div>
 </template>
 
