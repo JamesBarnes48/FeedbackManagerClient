@@ -4,10 +4,11 @@ export class PositiveFeedback implements Feedback{
     constructor(
         readonly rating: number,
         readonly expectation: string,
-        readonly details: string
+        readonly details: string,
+        public className: string = 'positive'
     ){}
 
-    toString(){
-        return `The user ${this.expectation.toLocaleLowerCase()}s that this met their expectations. They rated it ${this.rating}/5 stars and had this to say: ${this.details}`;
+    toString(): string{
+        return `The user enjoyed the product. They ${this.expectation.toLocaleLowerCase()} that it met their expectations. They rated it ${this.rating}/5 stars and had this to say: ${this.details}`;
     }
 }
