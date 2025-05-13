@@ -16,17 +16,12 @@ function updateFeedbacks(data: Feedback){
 <template>
   <div>
     <h1 class="page-title">Feedback Manager</h1>
-    <div class="feedback-container">
-      <h3 class="subtitle">Enter New Feedback:</h3>
-      <FeedbackInput @submitFeedback="updateFeedbacks" />
-    </div>
+    <h3 class="subtitle">Enter New Feedback:</h3>
+    <FeedbackInput @submitFeedback="updateFeedbacks" />
     <h3 class="subtitle">Your Feedback:</h3>
       <AllFeedbackContainer :feedbackArray="feedbacks" />
   </div>
 </template>
 
 <style scoped>
-.feedback-container {
-  width: 70%;
-}
 </style>

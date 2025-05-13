@@ -19,19 +19,22 @@
 </script>
 
 <template>
-    <div class="feedback-container">
-        <div>
-            <h1>feed</h1>
-        </div>
+    <div :class="feedback.className" class="inner-feedback-container">
+
     </div>
 </template>
 
 <style scoped>
-.feedback-container {
-    display: flex;
-    justify-content: space-evenly;
-    border: 1px solid black;
-    width: 70%;
-    padding: 10px 15px;
-}
+    .inner-feedback-container {
+        border: 1px solid black;
+        padding: 10px 15px;
+    }
+
+    .positive {
+        background-color: #80cc64;
+    }
+
+    .negative {
+        background-color: #b86570;
+    }
 </style>
