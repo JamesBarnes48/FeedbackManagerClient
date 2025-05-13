@@ -26,6 +26,8 @@
         <div class="rating-container">
             <img v-for="n in feedback.rating" class="rating-img" src="../../public/star.png" alt="star">
         </div>
+        <p class="flavour-text">They said:</p>
+        <p>{{ feedback.details }}</p>
     </div>
 </template>
 
@@ -34,7 +36,7 @@
         position: relative;
         border: 1px solid black;
         padding: 10px 15px;
-        min-height: 30px;
+        min-height: 40px;
     }
 
     .positive {
@@ -50,6 +52,7 @@
         top: 10px;
         right: 35px;
         margin-top: 0;
+        font-size: 1.7rem;
         pointer-events: none;
     }
 
@@ -63,6 +66,10 @@
 
     .rating-img {
         height: 55px;
+    }
+
+    .flavour-text {
+        font-weight: bold;
     }
 
 </style>
