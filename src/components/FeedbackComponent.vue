@@ -1,19 +1,18 @@
 <script lang="ts">
-    import FeedbackComponent from './FeedbackComponent.vue';
     import type { Feedback } from '../interfaces/Feedback';
     import type { PropType } from 'vue';
 
     export default {
-        name: 'FeedbackContainer',
-        components: {FeedbackComponent},
+        name: 'FeedbackComponent',
+        components: {},
         props: {
-            feedbackArray: {type: Array as PropType<Feedback[]>, default(){return []}}
+            feedback: {type: Object as PropType<Feedback>, required: true}
         },
         setup(props) {
-            const feedbackArray = props.feedbackArray;
+            const feedback = props.feedback;
 
             return {
-                feedbackArray
+                feedback
             }
         }
     }
@@ -22,10 +21,7 @@
 <template>
     <div class="feedback-container">
         <div>
-            <FeedbackComponent 
-            v-for="feedback in feedbackArray"
-            :feedback="feedback"
-            />
+            <h1>feed</h1>
         </div>
     </div>
 </template>
