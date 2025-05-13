@@ -14,11 +14,19 @@
             expectationInput = ref('agree'),
             detailsInput = ref('');
 
+            const resetFields = () => {
+                enjoymentInput.value = true;
+                ratingInput.value = 3;
+                expectationInput.value = 'agree';
+                detailsInput.value = '';
+            }
+
             const submitFeedback = (feedbackData: {enjoyment: boolean, rating: number, expectation: string, details: string}) => {
                 let data: Feedback = !!feedbackData.enjoyment? 
                     new PositiveFeedback(feedbackData.rating, feedbackData.expectation, feedbackData.details): 
                     new NegativeFeedback(feedbackData.rating, feedbackData.expectation, feedbackData.details);
                 emit('submitFeedback', data);
+                resetFields();
             };
 
             return {
