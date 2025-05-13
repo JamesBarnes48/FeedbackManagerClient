@@ -44,11 +44,11 @@
         <div class="input-row">
             <label>What would you rate the product out of 5 stars?</label>
             <select v-model.number="ratingInput">
-                <option value="0">1</option>
-                <option value="1">2</option>
-                <option value="2">3</option>
-                <option value="3">4</option>
-                <option value="4">5</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
             </select>
         </div>
         <div class="input-row">
