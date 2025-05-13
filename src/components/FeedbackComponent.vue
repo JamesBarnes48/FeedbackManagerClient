@@ -26,6 +26,11 @@
         <div class="rating-container">
             <img v-for="n in feedback.rating" class="rating-img" src="../../public/star.png" alt="star">
         </div>
+        <div class="response-bar">
+            <div class="scale-label">Strongly Disagree</div>
+            <div class="bar-gradient"></div>
+            <div class="scale-label">Strongly Agree</div>
+        </div>
         <p class="flavour-text">They said:</p>
         <p>{{ feedback.details }}</p>
     </div>
@@ -70,6 +75,27 @@
 
     .flavour-text {
         font-weight: bold;
+    }
+
+    .response-bar {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin: 20px 0;
+    }
+
+    .scale-label {
+        width: 120px;
+        font-size: 14px;
+        text-align: center;
+    }
+
+    .bar-gradient {
+        flex: 1;
+        height: 20px;
+        border-radius: 10px;
+        background: linear-gradient(to right, red, orange, yellow, lightgreen, green);
+        position: relative;
     }
 
 </style>
