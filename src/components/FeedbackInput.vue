@@ -10,7 +10,7 @@
         props: {},
         setup(props, {emit}) {
             let enjoymentInput = ref(true),
-            ratingInput = ref(0),
+            ratingInput = ref(3),
             expectationInput = ref('agree'),
             detailsInput = ref('');
 
