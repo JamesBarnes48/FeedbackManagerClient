@@ -2,6 +2,7 @@
     import { PositiveFeedback } from '../classes/PositiveFeedback';
     import type { Feedback } from '../interfaces/Feedback';
     import type { PropType } from 'vue';
+    import { computed } from 'vue';
 
     export default {
         name: 'FeedbackComponent',
@@ -12,8 +13,23 @@
         setup(props) {
             const feedback = props.feedback;
 
+            const expectationMarkerPositions = {
+                'strongly disagree': {magnitude: 0, orientation: 'left'},
+                'disagree': {magnitude: 25, orientation: 'left'},
+                'neither agree nor disagree': {magnitude: 50, orientation: 'left'},
+                'agree': {magnitude: 25, orientation: 'right'},
+                'strongly agree': {magnitude: 0, orientation: 'right'},
+            };
+
+            const getExpectationMarkerPosition = computed(() => {
+                //keyof typeof expectationMarkerPositions === 'strongly disagree' |'disagree' | 'neither agree nor disagree' | 'agree' | 'strongly agree'
+                const lookup = expectationMarkerPositions[feedback.expectation as keyof typeof expectationMarkerPositions];
+                return lookup.orientation === 'right'? {right: `${lookup.magnitude}%`}: {left: `${lookup.magnitude}%`};
+            })
+
             return {
                 feedback,
+                getExpectationMarkerPosition,
                 PositiveFeedback
             }
         }
@@ -28,7 +44,9 @@
         </div>
         <div class="response-bar">
             <div class="scale-label">Strongly Disagree</div>
-            <div class="bar-gradient"></div>
+            <div class="bar-gradient">
+                <div class="expectation-marker" :style="getExpectationMarkerPosition"></div>
+            </div>
             <div class="scale-label">Strongly Agree</div>
         </div>
         <p class="flavour-text">They said:</p>
@@ -96,6 +114,15 @@
         border-radius: 10px;
         background: linear-gradient(to right, red, orange, yellow, lightgreen, green);
         position: relative;
+    }
+
+    .expectation-marker {
+        position: absolute;
+        height: 19px;
+        width: 19px;
+        border: 2px solid black;
+        border-radius: 50%;
+        background-color: white;
     }
 
 </style>
