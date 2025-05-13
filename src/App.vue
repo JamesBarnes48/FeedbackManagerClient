@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import FeedbackInput from './components/FeedbackInput.vue'
-import AllFeedbackContainer from './components/AllFeedbackContainer.vue';
+import AllFeedbackContainer from './components/FeedbackContainer.vue';
 import type { Feedback } from './interfaces/Feedback';
 
 const feedbacks = ref<Feedback[]>([]);
@@ -21,7 +21,7 @@ function updateFeedbacks(data: Feedback){
       <FeedbackInput @submitFeedback="updateFeedbacks" />
     </div>
     <h3 class="subtitle">Your Feedback:</h3>
-      <AllFeedbackContainer />
+      <AllFeedbackContainer :feedbackArray="feedbacks" />
   </div>
 </template>
 
