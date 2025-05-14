@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "concurrently \"npm:dev:server\" \"npm:dev:client\"",
+    "dev": "concurrently \"npm run dev:client\" \"npm run dev:server\"",
     "dev:server": "ts-node src/backend/server.ts",
     "dev:client": "vite",
     "start": "node dist/server.js",
@@ -17,8 +17,12 @@
     "vue-router": "^4.5.1"
   },
   "devDependencies": {
+    "@types/express": "^5.0.1",
+    "@types/node": "^22.15.18",
     "@vitejs/plugin-vue": "^5.2.3",
     "@vue/tsconfig": "^0.7.0",
+    "concurrently": "^9.1.2",
+    "ts-node": "^10.9.2",
     "typescript": "~5.8.3",
     "vite": "^6.3.5",
     "vue-tsc": "^2.2.8"
