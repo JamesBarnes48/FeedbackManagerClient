@@ -4,11 +4,15 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "concurrently \"npm:dev:server\" \"npm:dev:client\"",
+    "dev:server": "ts-node src/backend/server.ts",
+    "dev:client": "vite",
+    "start": "node dist/server.js",
     "build": "vue-tsc -b && vite build",
     "preview": "vite preview"
   },
   "dependencies": {
+    "express": "^5.1.0",
     "vue": "^3.5.13",
     "vue-router": "^4.5.1"
   },
