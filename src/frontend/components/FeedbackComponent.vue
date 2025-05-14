@@ -40,7 +40,7 @@
     <div :class="feedback.className" class="inner-feedback-container">
         <h3 class="hovering-feedback-label">{{ feedback instanceof PositiveFeedback? 'Positive': 'Negative' }}</h3>
         <div class="rating-container">
-            <img v-for="n in feedback.rating" class="rating-img" src="../../public/star.png" alt="star">
+            <img v-for="n in feedback.rating" class="rating-img" src="/star.png" alt="star">
         </div>
         <div class="response-bar">
             <div class="scale-label">Strongly Disagree</div>
