@@ -9,12 +9,8 @@
         props: {
             feedbackArray: {type: Array as PropType<Feedback[]>, default(){return []}}
         },
-        setup(props) {
-            const feedbackArray = props.feedbackArray;
-
-            return {
-                feedbackArray
-            }
+        setup() {
+            return {}
         }
     }
 </script>
@@ -22,7 +18,7 @@
 <template>
     <div class="feedback-container">
         <FeedbackComponent 
-        v-for="feedback in feedbackArray"
+        v-for="feedback in $props.feedbackArray"
         :feedback="feedback"
         />
     </div>
