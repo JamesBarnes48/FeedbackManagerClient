@@ -1,8 +1,6 @@
 <script lang="ts">
     import {ref} from 'vue';
-    import type { Feedback } from '../interfaces/Feedback';
-    import { PositiveFeedback } from '../classes/PositiveFeedback';
-    import { NegativeFeedback } from '../classes/NegativeFeedback';
+    import api from '../api';
 
     export default {
         name: 'FeedbackInput',
@@ -21,11 +19,10 @@
                 detailsInput.value = '';
             }
 
-            const submitFeedback = (feedbackData: {enjoyment: boolean, rating: number, expectation: string, details: string}) => {
-                let data: Feedback = !!feedbackData.enjoyment? 
-                    new PositiveFeedback(feedbackData.rating, feedbackData.expectation, feedbackData.details): 
-                    new NegativeFeedback(feedbackData.rating, feedbackData.expectation, feedbackData.details);
-                emit('submitFeedback', data);
+            const submitFeedback = async () => {
+                const apiResult = await api.addNewFeedback({isPositive: enjoymentInput.value, rating: ratingInput.value, expectation: expectationInput.value, details: detailsInput.value});
+                console.info(apiResult);
+                //emit('submitFeedback', data);
                 resetFields();
             };
 
@@ -73,7 +70,7 @@
             <label>Please elaborate in more detail:</label>
             <input v-model="detailsInput" type="text" />
         </div>
-        <span class="submit-button" @click="submitFeedback({enjoyment: enjoymentInput, rating: ratingInput, expectation: expectationInput, details: detailsInput})">Submit</span>
+        <span class="submit-button" @click="submitFeedback">Submit</span>
     </div>
 </template>
 
