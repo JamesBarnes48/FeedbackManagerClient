@@ -4,7 +4,7 @@
     import type { PropType } from 'vue';
 
     export default {
-        name: 'FeedbackContainer',
+        name: 'AllFeedbackContainer',
         components: {FeedbackComponent},
         props: {
             feedbackArray: {type: Array as PropType<Feedback[]>, default(){return []}}

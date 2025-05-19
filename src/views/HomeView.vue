@@ -7,12 +7,12 @@
 
     const feedbacks = ref<Feedback[]>([]);
     const error = ref('');
-    const apiUrl = import.meta.env.MODE === 'development'? 'http://localhost:5173/': 'https://dummy-prod-url/';
+    const apiUrl = import.meta.env.MODE === 'development'? 'http://localhost:3000': 'https://dummy-prod-url';
 
     onMounted(async () => {
         try{
             const result = await axios.get(`${apiUrl}/feedback`);
-            feedbacks.value = result.data;
+            feedbacks.value = result.data?.feedbacks as Feedback[] || [];
         }catch(err){
             error.value = 'Failed to fetch feedback';
             console.error(err);
