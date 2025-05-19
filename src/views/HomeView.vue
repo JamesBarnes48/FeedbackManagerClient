@@ -1,7 +1,7 @@
 <script setup lang="ts">
     import { onMounted, ref } from 'vue';
     import FeedbackInput from '../components/FeedbackInput.vue'
-    import AllFeedbackContainer from '../components/FeedbackContainer.vue';
+    import AllFeedbackContainer from '../components/AllFeedbackContainer.vue';
     import type { Feedback } from '../interfaces/Feedback';
     import axios from 'axios';
 
