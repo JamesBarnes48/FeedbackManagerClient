@@ -1,10 +1,23 @@
 <script setup lang="ts">
-    import { ref } from 'vue';
+    import { onMounted, ref } from 'vue';
     import FeedbackInput from '../components/FeedbackInput.vue'
     import AllFeedbackContainer from '../components/FeedbackContainer.vue';
     import type { Feedback } from '../interfaces/Feedback';
+    import axios from 'axios';
 
     const feedbacks = ref<Feedback[]>([]);
+    const error = ref('');
+    const apiUrl = import.meta.env.MODE === 'development'? 'http://localhost:5173/': 'https://dummy-prod-url/';
+
+    onMounted(async () => {
+        try{
+            const result = await axios.get(`${apiUrl}/feedback`);
+            feedbacks.value = result.data;
+        }catch(err){
+            error.value = 'Failed to fetch feedback';
+            console.error(err);
+        }
+    })
 
     function updateFeedbacks(data: Feedback){
         feedbacks.value.push(data);
