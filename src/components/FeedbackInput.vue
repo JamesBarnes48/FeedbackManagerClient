@@ -22,7 +22,7 @@
             const submitFeedback = async () => {
                 const apiResult = await api.addNewFeedback({isPositive: enjoymentInput.value, rating: ratingInput.value, expectation: expectationInput.value, details: detailsInput.value});
                 console.info(apiResult);
-                //emit('submitFeedback', data);
+                emit('reload');
                 resetFields();
             };
 

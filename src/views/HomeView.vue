@@ -8,15 +8,19 @@
     const feedbacks = ref<Feedback[]>([]);
     const error = ref('');
 
-    onMounted(async () => {
+    onMounted(() => {
+        getFeedback();
+    })
+
+    async function getFeedback(){
+        console.info('refreshing');
         const apiResult = await api.getFeedback();
         feedbacks.value = apiResult.data || [];
         if(apiResult.error){} //make a popup that says an error occurred
-    })
+    }
 
-    function updateFeedbacks(data: Feedback){
-        feedbacks.value.push(data);
-        console.info(feedbacks.value);
+    function reload(){
+        getFeedback();
     }
 </script>
 
@@ -24,7 +28,7 @@
     <div>
         <h1 class="page-title">Feedback Manager</h1>
         <h3 class="subtitle">Enter New Feedback:</h3>
-        <FeedbackInput @submitFeedback="updateFeedbacks" />
+        <FeedbackInput @reload="reload" />
         <h3 class="subtitle">Your Feedback:</h3>
         <AllFeedbackContainer :feedbackArray="feedbacks" />
     </div>
