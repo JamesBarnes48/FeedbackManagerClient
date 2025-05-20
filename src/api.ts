@@ -27,9 +27,9 @@ export default {
         try{
             const result = await axios.post(`${this.apiUrl}/feedback`, input);
             return {success: true, message: result.data};
-        }catch(err: {message: string}){
+        }catch(err){
             console.error(err);
-            return {success: false, message: err.message};
+            return {success: false, message: 'Failed to add feedback'};
         }
     }
 }
