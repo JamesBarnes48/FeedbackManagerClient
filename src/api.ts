@@ -18,8 +18,8 @@ export default {
             return {success: true, data: (<expectedGetType[]>result.data?.feedbacks || [])
                 .map((f) => 
                     f.isPositive
-                    ? new PositiveFeedback(f.rating, f.expectation, f.details)
-                    : new NegativeFeedback(f.rating, f.expectation, f.details)
+                    ? new PositiveFeedback(f.id, f.rating, f.expectation, f.details)
+                    : new NegativeFeedback(f.id, f.rating, f.expectation, f.details)
                 ) || []};
         }catch(err){
             console.error(err);

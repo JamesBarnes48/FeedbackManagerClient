@@ -28,9 +28,14 @@
                 return lookup.orientation === 'right'? {right: `${lookup.magnitude}%`}: {left: `${lookup.magnitude}%`};
             })
 
+            const deleteFeedback = () => {
+                console.log(feedback.id);
+            }
+
             return {
                 feedback,
                 getExpectationMarkerPosition,
+                deleteFeedback,
                 PositiveFeedback
             }
         }
@@ -39,7 +44,7 @@
 
 <template>
     <div :class="feedback.className" class="inner-feedback-container">
-        <span class="button delete-button" @click="">X</span>
+        <span class="button delete-button" @click="deleteFeedback">X</span>
         <h3 class="hovering-feedback-label">{{ feedback instanceof PositiveFeedback? 'Positive': 'Negative' }}</h3>
         <div v-if="feedback.rating" class="rating-container">
             <img v-for="n in feedback.rating" class="rating-img" src="../../public/star.png" alt="star">

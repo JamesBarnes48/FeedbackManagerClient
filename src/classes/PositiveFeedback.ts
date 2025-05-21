@@ -2,6 +2,7 @@ import type { Feedback } from "../interfaces/Feedback.js";
 
 export class PositiveFeedback implements Feedback{
     constructor(
+        readonly id: string,
         readonly rating: number,
         readonly expectation: string,
         readonly details: string,

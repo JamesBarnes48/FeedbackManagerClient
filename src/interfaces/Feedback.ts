@@ -1,5 +1,6 @@
 export interface Feedback{
-    rating: number
+    id: string,
+    rating: number,
     expectation: string,
     details: string,
     className: string,
