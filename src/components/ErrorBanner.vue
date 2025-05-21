@@ -48,7 +48,6 @@
     position: fixed;
     top: 20px;
     left: 50%;
-    transform: translateX(-50%);
     background-color: #f44336;
     color: white;
     padding: 12px 24px;
