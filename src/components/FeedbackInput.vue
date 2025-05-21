@@ -19,7 +19,17 @@
                 detailsInput.value = '';
             }
 
+            const validateFeedback = () => {
+                if(!expectationInput.value.length) return 'Must provide a value for field: Expectation';
+                if(!detailsInput.value.length) return 'Must provide a value for field: Details';
+            }
+
             const submitFeedback = async () => {
+                const validationResult = validateFeedback();
+                if(validationResult){
+                    emit('error', validationResult);
+                    return;
+                }
                 const apiResult = await api.addNewFeedback({isPositive: enjoymentInput.value, rating: ratingInput.value, expectation: expectationInput.value, details: detailsInput.value});
                 if(apiResult.success){
                     emit('reload');
