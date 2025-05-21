@@ -39,6 +39,7 @@
 
 <template>
     <div :class="feedback.className" class="inner-feedback-container">
+        <span class="button delete-button" @click="">X</span>
         <h3 class="hovering-feedback-label">{{ feedback instanceof PositiveFeedback? 'Positive': 'Negative' }}</h3>
         <div v-if="feedback.rating" class="rating-container">
             <img v-for="n in feedback.rating" class="rating-img" src="../../public/star.png" alt="star">
@@ -61,7 +62,7 @@
     .inner-feedback-container {
         position: relative;
         border: 1px solid black;
-        padding: 10px 15px;
+        padding: 25px 15px 10px 15px;
         min-height: 60px;
     }
 
@@ -88,6 +89,13 @@
 
     .inner-feedback-container.negative .hovering-feedback-label {
         color: #784148;
+    }
+
+    .inner-feedback-container .delete-button {
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        padding: 5px 10px;
     }
 
     .rating-img {

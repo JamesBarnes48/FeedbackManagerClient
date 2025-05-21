@@ -84,7 +84,7 @@
             <label>Please elaborate in more detail:</label>
             <input v-model="detailsInput" type="text" />
         </div>
-        <span class="submit-button" @click="submitFeedback">Submit</span>
+        <span class="button submit-button" @click="submitFeedback">Submit</span>
     </div>
 </template>
 
@@ -99,25 +99,5 @@
     display: grid;
     grid-template-columns: 50% 50%;
     margin: 10px 0;
-}
-
-.submit-button {
-  display: inline-block;
-  padding: 10px 20px;
-  background-color: #4CAF50; /* Green */
-  color: white;
-  font-size: 16px;
-  border-radius: 5px;
-  cursor: pointer;
-  user-select: none;
-  transition: background-color 0.3s;
-}
-
-.submit-button:hover {
-  background-color: #45a049;
-}
-
-.submit-button:active {
-  background-color: #3e8e41;
 }
 </style>

@@ -18,3 +18,41 @@ h1 {
 .page-title {
   text-align: center;
 }
+
+.button {
+  display: inline-block;
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  user-select: none;
+  transition: background-color 0.3s;
+}
+
+.button.submit-button {
+  background-color: #4CAF50; /* Green */
+  color: white;
+}
+
+.button.submit-button:hover {
+  background-color: #45a049;
+}
+
+.button.submit-button:active {
+  background-color: #3e8e41;
+}
+
+.button.delete-button {
+  background-color: white;
+  color: #610803;
+}
+
+.button.delete-button:hover {
+  background-color: #610803;
+  color: white;
+}
+
+.button.delete-button:active {
+  background-color: #610803;
+  color: white;
+}
