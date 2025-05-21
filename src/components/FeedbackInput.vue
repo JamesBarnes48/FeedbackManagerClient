@@ -8,20 +8,21 @@
         props: {},
         setup(props, {emit}) {
             let enjoymentInput = ref(true),
-            ratingInput = ref(3),
-            expectationInput = ref('agree'),
+            ratingInput = ref(0),
+            expectationInput = ref(''),
             detailsInput = ref('');
 
             const resetFields = () => {
                 enjoymentInput.value = true;
-                ratingInput.value = 3;
-                expectationInput.value = 'agree';
+                ratingInput.value = 0;
+                expectationInput.value = '';
                 detailsInput.value = '';
             }
 
             const validateFeedback = () => {
-                if(!expectationInput.value.length) return 'Must provide a value for field: Expectation';
-                if(!detailsInput.value.length) return 'Must provide a value for field: Details';
+                //validation here: for inputs that might not be optional!
+                //currently we leverage the flexibility of mongodb documents by letting people choose which fields they fill out - only mandatory one is enjoyment
+                return false;
             }
 
             const submitFeedback = async () => {
@@ -60,6 +61,7 @@
         <div class="input-row">
             <label>What would you rate the product out of 5 stars?</label>
             <select v-model.number="ratingInput">
+                <option value="0">Select one:</option>
                 <option value="1">1</option>
                 <option value="2">2</option>
                 <option value="3">3</option>
@@ -70,6 +72,7 @@
         <div class="input-row">
             <label>Would you agree that the product meets your expectations?</label>
             <select v-model="expectationInput">
+                <option value="">Select one:</option>
                 <option value="strongly disagree">Strongly disagree</option>
                 <option value="disagree">Disagree</option>
                 <option value="neither agree nor disagree">Neither agree nor disagree</option>

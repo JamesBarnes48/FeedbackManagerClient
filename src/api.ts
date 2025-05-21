@@ -6,7 +6,8 @@ type expectedGetType = {id: string, isPositive: boolean, rating: number, expecta
 type expectedPostType = {isPositive: boolean, rating: number, expectation: string, details: string};
 const validExpectations = ['strongly disagree', 'disagree', 'neither agree nor disagree', 'agree', 'strongly agree'];
 
-const validateFeedback = (feedback: expectedPostType) => !!((feedback.isPositive !== undefined) && (feedback.rating > 0 && feedback.rating <= 5) && validExpectations.includes(feedback.expectation) && feedback.details.length);
+//if we do provide vals for most of the fields ensure they are valid
+const validateFeedback = (feedback: expectedPostType) => !!((feedback.isPositive !== undefined) && (!feedback.rating || feedback.rating > 0 && feedback.rating <= 5) && (!feedback.expectation || validExpectations.includes(feedback.expectation)));
 
 export default {
     apiUrl: import.meta.env.MODE === 'development'? 'http://localhost:3000': 'https://dummy-prod-url',

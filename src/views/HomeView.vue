@@ -20,7 +20,6 @@
     }
 
     async function getFeedback(){
-        console.info('refreshing');
         const apiResult = await api.getFeedback();
         feedbacks.value = apiResult.data || [];
         if(apiResult.error) triggerError(apiResult.error) //make a popup that says an error occurred

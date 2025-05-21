@@ -22,6 +22,7 @@
             };
 
             const getExpectationMarkerPosition = computed(() => {
+                if(!feedback.expectation) return;
                 //keyof typeof expectationMarkerPositions === 'strongly disagree' |'disagree' | 'neither agree nor disagree' | 'agree' | 'strongly agree'
                 const lookup = expectationMarkerPositions[feedback.expectation as keyof typeof expectationMarkerPositions];
                 return lookup.orientation === 'right'? {right: `${lookup.magnitude}%`}: {left: `${lookup.magnitude}%`};
@@ -39,18 +40,20 @@
 <template>
     <div :class="feedback.className" class="inner-feedback-container">
         <h3 class="hovering-feedback-label">{{ feedback instanceof PositiveFeedback? 'Positive': 'Negative' }}</h3>
-        <div class="rating-container">
+        <div v-if="feedback.rating" class="rating-container">
             <img v-for="n in feedback.rating" class="rating-img" src="../../public/star.png" alt="star">
         </div>
-        <div class="response-bar">
+        <div v-if="feedback.expectation" class="response-bar">
             <div class="scale-label">Strongly Disagree</div>
             <div class="bar-gradient">
                 <div class="expectation-marker" :style="getExpectationMarkerPosition"></div>
             </div>
             <div class="scale-label">Strongly Agree</div>
         </div>
-        <p class="flavour-text">They said:</p>
-        <p>{{ feedback.details }}</p>
+        <div v-if="feedback.details">
+            <p class="flavour-text">They said:</p>
+            <p>{{ feedback.details }}</p>
+        </div>
     </div>
 </template>
 
@@ -59,7 +62,7 @@
         position: relative;
         border: 1px solid black;
         padding: 10px 15px;
-        min-height: 40px;
+        min-height: 60px;
     }
 
     .positive {
@@ -99,6 +102,10 @@
         display: flex;
         align-items: center;
         gap: 10px;
+        margin: 50px 0 20px 0;
+    }
+
+    .rating-container + .response-bar {
         margin: 20px 0;
     }
 
