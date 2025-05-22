@@ -3,6 +3,7 @@
     import type { Feedback } from '../interfaces/Feedback';
     import type { PropType } from 'vue';
     import { computed } from 'vue';
+    import api from '../api';
 
     export default {
         name: 'FeedbackComponent',
@@ -10,7 +11,7 @@
         props: {
             feedback: {type: Object as PropType<Feedback>, required: true}
         },
-        setup(props) {
+        setup(props, {emit}) {
             const feedback = props.feedback;
 
             const expectationMarkerPositions = {
@@ -28,8 +29,10 @@
                 return lookup.orientation === 'right'? {right: `${lookup.magnitude}%`}: {left: `${lookup.magnitude}%`};
             })
 
-            const deleteFeedback = () => {
-                console.log(feedback.id);
+            const deleteFeedback = async () => {
+                const apiResult = await api.deleteFeedback(feedback.id);
+                if(apiResult.success) emit('reload');
+                else emit('error', apiResult.message);
             }
 
             return {

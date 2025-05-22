@@ -37,7 +37,7 @@
         <h3 class="subtitle">Enter New Feedback:</h3>
         <FeedbackInput @error="triggerError" @reload="reload" />
         <h3 class="subtitle">Your Feedback:</h3>
-        <AllFeedbackContainer :feedbackArray="feedbacks" />
+        <AllFeedbackContainer :feedbackArray="feedbacks" @error="triggerError" @reload="reload" />
     </div>
 </template>
 

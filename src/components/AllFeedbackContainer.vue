@@ -9,8 +9,10 @@
         props: {
             feedbackArray: {type: Array as PropType<Feedback[]>, default(){return []}}
         },
-        setup() {
-            return {}
+        setup(props, {emit}) {
+            const triggerError = (message: string) => emit('error', message);
+            const reload = () => emit('reload');
+            return {triggerError, reload}
         }
     }
 </script>
@@ -19,6 +21,8 @@
     <div class="feedback-container">
         <FeedbackComponent 
         v-for="feedback in $props.feedbackArray"
+        @error="triggerError"
+        @reload="reload"
         :feedback="feedback"
         />
     </div>

@@ -36,5 +36,16 @@ export default {
             console.error(err);
             return {success: false, message: 'Failed to add feedback'};
         }
+    },
+
+    async deleteFeedback(id: string){
+        try{
+            if(!id?.length || typeof id !== 'string') return {success: false, message: 'A valid id is required to delete feedback'};
+            const result = await axios.delete(`${this.apiUrl}/feedback/${id}`);
+            return {success: true, message: result.data};
+        }catch(err){
+            console.error(err);
+            return {success: false, message: 'Failed to delete feedback'};
+        }
     }
 }
