@@ -35,6 +35,8 @@
                 if(apiResult.success){
                     emit('reload');
                     resetFields();
+                }else{
+                    emit('error', apiResult.message);
                 }
             };
 
