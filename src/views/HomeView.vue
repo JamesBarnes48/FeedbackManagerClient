@@ -7,8 +7,8 @@
     import type { Feedback } from '../interfaces/Feedback';
 
     const feedbacks = ref<Feedback[]>([]);
-    let errorMessage = ref('');
-    let showError = ref(false);
+    const errorMessage = ref('');
+    const showError = ref(false);
 
     onMounted(() => {
         getFeedback();
@@ -20,6 +20,7 @@
     }
 
     async function getFeedback(){
+        feedbacks.value = [];
         const apiResult = await api.getFeedback();
         feedbacks.value = apiResult.data || [];
         if(apiResult.error) triggerError(apiResult.error) //make a popup that says an error occurred
