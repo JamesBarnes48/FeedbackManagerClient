@@ -91,15 +91,4 @@
 </template>
 
 <style scoped>
-.form-container {
-    border: 1px solid black;
-    width: 70%;
-    padding: 10px 15px;
-}
-
-.input-row {
-    display: grid;
-    grid-template-columns: 50% 50%;
-    margin: 10px 0;
-}
 </style>

@@ -19,6 +19,8 @@ h1 {
   text-align: center;
 }
 
+/* Buttons */
+
 .button {
   display: inline-block;
   padding: 10px 20px;
@@ -55,4 +57,18 @@ h1 {
 .button.delete-button:active {
   background-color: #610803;
   color: white;
+}
+
+/* Form components */
+
+.form-container {
+  border: 1px solid black;
+  width: 70%;
+  padding: 10px 15px;
+}
+
+.input-row {
+  display: grid;
+  grid-template-columns: 50% 50%;
+  margin: 10px 0;
 }
