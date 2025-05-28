@@ -101,5 +101,10 @@ export default {
             authCache = {authenticated: false, created: +Date.now()};
             return authCache;
         }
+    },
+
+    logout(){
+        this.api.post('/auth/logout');
+        authCache = null;
     }
 }

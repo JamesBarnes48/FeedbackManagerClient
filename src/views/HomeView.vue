@@ -1,8 +1,8 @@
 <script setup lang="ts">
     import { onMounted, ref } from 'vue';
     import FeedbackInput from '../components/FeedbackInput.vue'
-    import ErrorBanner from '../components/ErrorBanner.vue';
     import AllFeedbackContainer from '../components/AllFeedbackContainer.vue';
+    import { useRouter } from 'vue-router';
     import api from '../api';
     import type { Feedback } from '../interfaces/Feedback';
 
@@ -11,6 +11,7 @@
 
     //quirk of using the script setup - have to do this to use emits
     const emit = defineEmits();
+    const router = useRouter();
 
     onMounted(async () => {
         username.value = (await api.checkAuth()).username || '';
@@ -27,6 +28,11 @@
     function reload(){
         getFeedback();
     }
+
+    function logout(){
+        api.logout();
+        router.push('/login');
+    }
 </script>
 
 <template>
@@ -37,6 +43,7 @@
         <FeedbackInput @error="(message) => {$emit('error', message)}" @reload="reload" />
         <h3 class="subtitle">Your Feedback:</h3>
         <AllFeedbackContainer :feedbackArray="feedbacks" @error="(message) => {$emit('error', message)}" @reload="reload" />
+        <span class="button" @click="logout">Logout</span>
     </div>
 </template>
 
