@@ -1,5 +1,7 @@
 <script lang="ts">
     import {ref} from 'vue';
+    import api from '../api'
+
     export default {
         name: 'RegistrationComponent',
         components: {},
@@ -9,12 +11,22 @@
             const passwordInput = ref('');
             const reenterPasswordInput = ref('');
 
-            function register(): void{
+            function resetFields(){
+                usernameInput.value = '';
+                passwordInput.value = '';
+                reenterPasswordInput.value = '';
+            }
+
+            async function register(): Promise<void>{
                 //ensure both passwords match
                 if(passwordInput.value !== reenterPasswordInput.value) return emit('error', 'Password fields do not match');
-                //ensure fields meet standard compliance
-                if(!/^[a-zA-Z0-9_]{3,30}$/.test(usernameInput.value)) return emit('error', 'Invalid username field');
-                if(!/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d@$!%*?&]{6,32}$/.test(passwordInput.value)) return emit('error', 'Invalid password field');
+
+                const result = await api.registerUser({username: usernameInput.value, password: passwordInput.value});
+                if(result.success){
+                    resetFields();
+                }else{
+                    emit('error', result.message);
+                }
             }
             return {
                 usernameInput,
