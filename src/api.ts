@@ -17,7 +17,7 @@ const validateUser = (user: expectedUser): {valid: boolean, error: string} => {
 
 //authCache holds our current session info from our last /heartbeat call in a cache so we dont have to keep hitting /heartbeat for clientside to know we are still authed
 //accessed using checkAuth - will likely need to take some measures to factor in token expiry as its not the most secure at the minute
-let authCache: {authenticated: boolean, username?: string} | null = null;
+let authCache: {authenticated: boolean, created: number, username?: string} | null = null;
 
 export default {
     //allows us to set default config for all our api requests, saves us specifying withCredentials (for sending login cookies) and our base path each time
@@ -89,16 +89,16 @@ export default {
         }
     },
 
-    async checkAuth(): Promise<{authenticated: boolean, username?: string}>{
-        if(authCache !== null) return authCache;
+    async checkAuth(): Promise<{authenticated: boolean, created: number, username?: string}>{
+        if(authCache !== null && (+Date.now() - authCache.created) < 1800000) return authCache;
 
         try{
             const result = await this.api.get('/auth/heartbeat') as {data: {authenticated: boolean, username?: string}};
             if(!result.data?.authenticated) throw new Error();
-            authCache = result.data;
+            authCache = {...result.data, created: +Date.now()};
             return authCache;
         }catch(err){
-            authCache = {authenticated: false};
+            authCache = {authenticated: false, created: +Date.now()};
             return authCache;
         }
     }
