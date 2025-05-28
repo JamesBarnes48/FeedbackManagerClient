@@ -7,23 +7,19 @@
     import type { Feedback } from '../interfaces/Feedback';
 
     const feedbacks = ref<Feedback[]>([]);
-    const errorMessage = ref('');
-    const showError = ref(false);
+
+    //quirk of using the script setup - have to do this to use emits
+    const emit = defineEmits();
 
     onMounted(() => {
         getFeedback();
     })
 
-    function triggerError(message: string){
-        errorMessage.value = message;
-        showError.value = true;
-    }
-
     async function getFeedback(){
         feedbacks.value = [];
         const apiResult = await api.getFeedback();
         feedbacks.value = apiResult.data || [];
-        if(apiResult.error) triggerError(apiResult.error) //make a popup that says an error occurred
+        if(apiResult.error) emit('error', apiResult.error) //make a popup that says an error occurred
     }
 
     function reload(){

@@ -20,7 +20,7 @@ const router = createRouter({
 })
 
 router.beforeEach((to, from, next) => {
-  const auth = false; //say we are authed for now
+  const auth = true; //say we are authed for now
   if(to.meta.requiresAuth && !auth) next({name: 'login'})
   else next();
 })
