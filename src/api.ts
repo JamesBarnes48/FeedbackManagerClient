@@ -16,11 +16,15 @@ const validateUser = (user: expectedUser): {valid: boolean, error: string} => {
 }
 
 export default {
-    apiUrl: import.meta.env.MODE === 'development'? 'http://localhost:3000': 'https://dummy-prod-url',
+    //allows us to set default config for all our api requests, saves us specifying withCredentials (for sending login cookies) and our base path each time
+    api: axios.create({
+        baseURL: import.meta.env.MODE === 'development'? 'http://localhost:3000': 'https://dummy-prod-url',
+        withCredentials: true
+    }),
 
     async getFeedback(){
         try{
-            const result = await axios.get(`${this.apiUrl}/feedback`);
+            const result = await this.api.get(`/feedback`);
             return {success: true, data: (<expectedGetType[]>result.data?.feedbacks || [])
                 .map((f) => 
                     f.isPositive
@@ -36,7 +40,7 @@ export default {
     async addNewFeedback(input: expectedPostType){
         try{
             if(!validateFeedback(input)) return {success: false, message: 'Failed to add feedback due to invalid input'};
-            const result = await axios.post(`${this.apiUrl}/feedback`, {feedbackProps: input});
+            const result = await this.api.post(`/feedback`, {feedbackProps: input});
             return {success: true, message: result.data};
         }catch(err){
             console.error(err);
@@ -47,7 +51,7 @@ export default {
     async deleteFeedback(id: string){
         try{
             if(!id?.length || typeof id !== 'string') return {success: false, message: 'A valid id is required to delete feedback'};
-            const result = await axios.delete(`${this.apiUrl}/feedback/${id}`);
+            const result = await this.api.delete(`/feedback/${id}`);
             return {success: true, message: result.data};
         }catch(err){
             console.error(err);
@@ -59,7 +63,7 @@ export default {
         try{
             const validUser = validateUser(user);
             if(!validUser.valid) return {success: false, message: validUser.error};
-            const result = await axios.post(`${this.apiUrl}/auth/register`, user);
+            const result = await this.api.post(`/auth/register`, user);
             return {success: true, message: result.data};
         }catch(err){
             console.error(err);
@@ -73,7 +77,7 @@ export default {
             if(!/^[a-zA-Z0-9_]{3,30}$/.test(user.username)) return {success: false, message: 'Invalid username field'};
             if(!/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d@$!%*?&]{6,32}$/.test(user.password)) return {success: false, message: 'Invalid password field'};
 
-            const result = await axios.post(`${this.apiUrl}/auth/login`);
+            const result = await this.api.post(`/auth/login`);
             return {success: true, message: result.data};
         }catch(err){
             console.error(err);
