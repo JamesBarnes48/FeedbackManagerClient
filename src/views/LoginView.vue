@@ -1,10 +1,12 @@
 <script setup lang="ts">
     import { ref, computed } from 'vue';
+    import { useRouter } from 'vue-router';
     import RegistrationComponent from '../components/RegistrationComponent.vue';
     import api from '../api';
 
     // quirk of script setup - need this to be able to use emits
     const emit = defineEmits();
+    const router = useRouter();
 
     const usernameInput = ref('');
     const passwordInput = ref('');
@@ -15,9 +17,18 @@
         showRegister.value = !showRegister.value;
     }
 
+    function resetFields(){
+        usernameInput.value = '';
+        passwordInput.value = '';
+    }
+
     async function login(){
         const result = await api.login({username: usernameInput.value, password: passwordInput.value});
-        console.log(result);
+        if(!result.success){
+            resetFields();
+            return emit('error', result.message);
+        }
+        router.push('/');
     }
 </script>
 

@@ -80,7 +80,7 @@ export default {
             if(!/^[a-zA-Z0-9_]{3,30}$/.test(user.username)) return {success: false, message: 'Invalid username field'};
             if(!/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d@$!%*?&]{6,32}$/.test(user.password)) return {success: false, message: 'Invalid password field'};
 
-            const result = await this.api.post(`/auth/login`);
+            const result = await this.api.post(`/auth/login`, user);
             return {success: true, message: result.data};
         }catch(err){
             console.error(err);
