@@ -65,5 +65,16 @@ export default {
             console.error(err);
             return {success: false, message: 'Failed to register user'};
         }
+    },
+
+    async login(user: {username: string, password: string}){
+        try{
+            if(!user?.username || !user?.password) return {success: false, message: 'Username or password is empty'};
+            if(!/^[a-zA-Z0-9_]{3,30}$/.test(user.username)) return {success: false, message: 'Invalid username field'};
+            if(!/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d@$!%*?&]{6,32}$/.test(user.password)) return {success: false, message: 'Invalid password field'};
+        }catch(err){
+            console.error(err);
+            return {success: false, message: 'Failed to login user'};
+        }
     }
 }

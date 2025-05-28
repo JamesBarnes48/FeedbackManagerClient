@@ -15,11 +15,9 @@
         showRegister.value = !showRegister.value;
     }
 
-    function login(){
-        if(!/^[a-zA-Z0-9_]{3,30}$/.test(usernameInput.value)) return emit('error', 'Invalid username field');
-        if(!/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d@$!%*?&]{6,32}$/.test(passwordInput.value)) return emit('error', 'Invalid password field');
-
-        //hit login api here!
+    async function login(){
+        const result = await api.login({username: usernameInput.value, password: passwordInput.value});
+        console.log(result);
     }
 </script>
 
