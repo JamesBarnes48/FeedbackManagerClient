@@ -53,7 +53,7 @@
         </div>
         <span class="button submit-button" @click="login">Login</span>
         <h3>No account? <span class="button" @click="toggleRegister">{{ registrationButtonName }}</span></h3>
-        <RegistrationComponent v-if="showRegister" />
+        <RegistrationComponent @error="triggerError" v-if="showRegister" />
     </div>
 </template>
 
