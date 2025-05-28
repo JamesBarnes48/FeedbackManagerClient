@@ -4,10 +4,16 @@ import { NegativeFeedback } from './classes/NegativeFeedback';
 
 type expectedGetType = {id: string, isPositive: boolean, rating: number, expectation: string, details: string};
 type expectedPostType = {isPositive: boolean, rating: number, expectation: string, details: string};
+type expectedUser = {username: string, password: string};
 const validExpectations = ['strongly disagree', 'disagree', 'neither agree nor disagree', 'agree', 'strongly agree'];
 
 //if we do provide vals for most of the fields ensure they are valid
 const validateFeedback = (feedback: expectedPostType) => !!((feedback.isPositive !== undefined) && (!feedback.rating || feedback.rating > 0 && feedback.rating <= 5) && (!feedback.expectation || validExpectations.includes(feedback.expectation)));
+const validateUser = (user: expectedUser): {valid: boolean, error: string} => {
+    if(!/^[a-zA-Z0-9_]{3,30}$/.test(user.username)) return {valid: false, error: 'Invalid username field'};
+    if(!/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d@$!%*?&]{6,32}$/.test(user.password)) return {valid: false, error: 'Invalid password field'};
+    return {valid: true, error: ''};
+}
 
 export default {
     apiUrl: import.meta.env.MODE === 'development'? 'http://localhost:3000': 'https://dummy-prod-url',
@@ -46,6 +52,17 @@ export default {
         }catch(err){
             console.error(err);
             return {success: false, message: 'Failed to delete feedback'};
+        }
+    },
+
+    async registerUser(user: {username: string, password: string}){
+        try{
+            const validUser = validateUser(user);
+            if(!validUser.valid) return {success: false, message: validUser.error};
+            return {success: true, message: 'yippee'};
+        }catch(err){
+            console.error(err);
+            return {success: false, message: 'Failed to register user'};
         }
     }
 }
