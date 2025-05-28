@@ -7,6 +7,9 @@ type expectedPostType = {isPositive: boolean, rating: number, expectation: strin
 type expectedUser = {username: string, password: string};
 const validExpectations = ['strongly disagree', 'disagree', 'neither agree nor disagree', 'agree', 'strongly agree'];
 
+let authCache: {authenticated: boolean, username?: string} | null = null;
+
+
 //if we do provide vals for most of the fields ensure they are valid
 const validateFeedback = (feedback: expectedPostType) => !!((feedback.isPositive !== undefined) && (!feedback.rating || feedback.rating > 0 && feedback.rating <= 5) && (!feedback.expectation || validExpectations.includes(feedback.expectation)));
 const validateUser = (user: expectedUser): {valid: boolean, error: string} => {
@@ -82,6 +85,20 @@ export default {
         }catch(err){
             console.error(err);
             return {success: false, message: 'Failed to login user'};
+        }
+    },
+
+    async checkAuth(): Promise<{authenticated: boolean, username?: string}>{
+        if(authCache !== null) return authCache;
+
+        try{
+            const result = await this.api.get('/auth/heartbeat') as {data: {authenticated: boolean, username?: string}};
+            if(!result.data?.authenticated) throw new Error();
+            authCache = result.data;
+            return authCache;
+        }catch(err){
+            authCache = {authenticated: false};
+            return authCache;
         }
     }
 }

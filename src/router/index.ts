@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import LoginView from '../views/LoginView.vue'
+import api from '../api'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -19,10 +20,12 @@ const router = createRouter({
   ],
 })
 
-router.beforeEach((to, from, next) => {
-  const auth = true; //say we are authed for now
-  if(to.meta.requiresAuth && !auth) next({name: 'login'})
-  else next();
+router.beforeEach(async (to, from, next) => {
+  if(!to.meta.requiresAuth) return next();
+  
+  const auth = await api.checkAuth();
+  if(auth.authenticated) return next();
+  return next({name: 'login'});
 })
 
 export default router
