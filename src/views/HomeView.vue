@@ -31,13 +31,12 @@
 
 <template>
     <div>
-        <ErrorBanner v-model:show="showError" :message="errorMessage" />
         <h1 class="page-title">Feedback Manager</h1>
         <h3>Welcome back, {{ username }}</h3>
         <h3 class="subtitle">Enter New Feedback:</h3>
-        <FeedbackInput @error="triggerError" @reload="reload" />
+        <FeedbackInput @error="(message) => {$emit('error', message)}" @reload="reload" />
         <h3 class="subtitle">Your Feedback:</h3>
-        <AllFeedbackContainer :feedbackArray="feedbacks" @error="triggerError" @reload="reload" />
+        <AllFeedbackContainer :feedbackArray="feedbacks" @error="(message) => {$emit('error', message)}" @reload="reload" />
     </div>
 </template>
 
