@@ -7,9 +7,6 @@ type expectedPostType = {isPositive: boolean, rating: number, expectation: strin
 type expectedUser = {username: string, password: string};
 const validExpectations = ['strongly disagree', 'disagree', 'neither agree nor disagree', 'agree', 'strongly agree'];
 
-let authCache: {authenticated: boolean, username?: string} | null = null;
-
-
 //if we do provide vals for most of the fields ensure they are valid
 const validateFeedback = (feedback: expectedPostType) => !!((feedback.isPositive !== undefined) && (!feedback.rating || feedback.rating > 0 && feedback.rating <= 5) && (!feedback.expectation || validExpectations.includes(feedback.expectation)));
 const validateUser = (user: expectedUser): {valid: boolean, error: string} => {
@@ -17,6 +14,10 @@ const validateUser = (user: expectedUser): {valid: boolean, error: string} => {
     if(!/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d@$!%*?&]{6,32}$/.test(user.password)) return {valid: false, error: 'Invalid password field'};
     return {valid: true, error: ''};
 }
+
+//authCache holds our current session info from our last /heartbeat call in a cache so we dont have to keep hitting /heartbeat for clientside to know we are still authed
+//accessed using checkAuth - will likely need to take some measures to factor in token expiry as its not the most secure at the minute
+let authCache: {authenticated: boolean, username?: string} | null = null;
 
 export default {
     //allows us to set default config for all our api requests, saves us specifying withCredentials (for sending login cookies) and our base path each time

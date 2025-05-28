@@ -7,11 +7,13 @@
     import type { Feedback } from '../interfaces/Feedback';
 
     const feedbacks = ref<Feedback[]>([]);
+    let username = ref('');
 
     //quirk of using the script setup - have to do this to use emits
     const emit = defineEmits();
 
-    onMounted(() => {
+    onMounted(async () => {
+        username.value = (await api.checkAuth()).username || '';
         getFeedback();
     })
 
@@ -31,6 +33,7 @@
     <div>
         <ErrorBanner v-model:show="showError" :message="errorMessage" />
         <h1 class="page-title">Feedback Manager</h1>
+        <h3>Welcome back, {{ username }}</h3>
         <h3 class="subtitle">Enter New Feedback:</h3>
         <FeedbackInput @error="triggerError" @reload="reload" />
         <h3 class="subtitle">Your Feedback:</h3>
