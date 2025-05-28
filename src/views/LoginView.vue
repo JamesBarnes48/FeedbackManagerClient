@@ -1,6 +1,7 @@
 <script setup lang="ts">
     import { ref, computed } from 'vue';
     import ErrorBanner from '../components/ErrorBanner.vue';
+    import RegistrationComponent from '../components/RegistrationComponent.vue';
     import api from '../api';
 
     const errorMessage = ref('');
@@ -52,6 +53,7 @@
         </div>
         <span class="button submit-button" @click="login">Login</span>
         <h3>No account? <span class="button" @click="toggleRegister">{{ registrationButtonName }}</span></h3>
+        <RegistrationComponent v-if="showRegister" />
     </div>
 </template>
 
