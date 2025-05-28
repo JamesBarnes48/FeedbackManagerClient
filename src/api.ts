@@ -59,7 +59,8 @@ export default {
         try{
             const validUser = validateUser(user);
             if(!validUser.valid) return {success: false, message: validUser.error};
-            return {success: true, message: 'yippee'};
+            const result = await axios.post(`${this.apiUrl}/auth/register`, user);
+            return {success: true, message: result.data};
         }catch(err){
             console.error(err);
             return {success: false, message: 'Failed to register user'};
