@@ -2,7 +2,7 @@
     import { PositiveFeedback } from '../classes/PositiveFeedback';
     import type { Feedback } from '../interfaces/Feedback';
     import type { PropType } from 'vue';
-    import { computed } from 'vue';
+    import { computed, onMounted, ref } from 'vue';
     import api from '../api';
 
     export default {
@@ -13,6 +13,7 @@
         },
         setup(props, {emit}) {
             const feedback = props.feedback;
+            const ownsFeedback = ref(false);
 
             const expectationMarkerPositions = {
                 'strongly disagree': {magnitude: 0, orientation: 'left'},
@@ -22,6 +23,11 @@
                 'strongly agree': {magnitude: 0, orientation: 'right'},
             };
 
+            onMounted(async () => {
+                const user = await api.checkAuth();
+                ownsFeedback.value = user.username === feedback.addedBy
+            })
+
             const getExpectationMarkerPosition = computed(() => {
                 if(!feedback.expectation) return;
                 //keyof typeof expectationMarkerPositions === 'strongly disagree' |'disagree' | 'neither agree nor disagree' | 'agree' | 'strongly agree'
@@ -30,6 +36,8 @@
             })
 
             const deleteFeedback = async () => {
+                const user = await api.checkAuth();
+                if(user.username !== feedback.addedBy) return emit('error', 'You do not have permission to delete this feedback');
                 const apiResult = await api.deleteFeedback(feedback.id);
                 if(apiResult.success) emit('reload');
                 else emit('error', apiResult.message);
@@ -37,6 +45,7 @@
 
             return {
                 feedback,
+                ownsFeedback,
                 getExpectationMarkerPosition,
                 deleteFeedback,
                 PositiveFeedback
@@ -47,7 +56,7 @@
 
 <template>
     <div :class="feedback.className" class="inner-feedback-container">
-        <span class="button delete-button" @click="deleteFeedback">X</span>
+        <span v-if="ownsFeedback" class="button delete-button" @click="deleteFeedback">X</span>
         <h3 class="hovering-feedback-label">{{ feedback instanceof PositiveFeedback? 'Positive': 'Negative' }}</h3>
         <div v-if="feedback.rating" class="rating-container">
             <img v-for="n in feedback.rating" class="rating-img" src="../../public/star.png" alt="star">
