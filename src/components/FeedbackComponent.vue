@@ -59,9 +59,15 @@
             </div>
             <div class="scale-label">Strongly Agree</div>
         </div>
-        <div v-if="feedback.details">
-            <p class="flavour-text">They said:</p>
-            <p>{{ feedback.details }}</p>
+        <div class="duo-container">
+            <div v-if="feedback.details">
+                <p class="flavour-text">They said:</p>
+                <p>{{ feedback.details }}</p>
+            </div>
+            <div class="inline-children bottom-corner" v-if="feedback.addedBy">
+                <p>Created by:</p>
+                <h3>{{ feedback.addedBy }}</h3>
+            </div>
         </div>
     </div>
 </template>
@@ -104,6 +110,22 @@
         top: 0px;
         left: 0px;
         padding: 5px 10px;
+    }
+
+    .duo-container {
+        display: grid;
+        grid-template-columns: 2fr 1fr;
+    }
+
+    .inline-children > * {
+        display: inline-block;
+        margin: 0 5px;
+    }
+
+    .inner-feedback-container .bottom-corner {
+        position: absolute;
+        right: 5px;
+        bottom: 3px;
     }
 
     .rating-img {

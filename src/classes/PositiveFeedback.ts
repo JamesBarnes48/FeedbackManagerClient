@@ -6,6 +6,7 @@ export class PositiveFeedback implements Feedback{
         readonly rating: number,
         readonly expectation: string,
         readonly details: string,
+        readonly addedBy: string,
         public className: string = 'positive'
     ){}
 

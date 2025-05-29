@@ -2,7 +2,7 @@ import axios from 'axios';
 import { PositiveFeedback } from './classes/PositiveFeedback';
 import { NegativeFeedback } from './classes/NegativeFeedback';
 
-type expectedGetType = {id: string, isPositive: boolean, rating: number, expectation: string, details: string};
+type expectedGetType = {id: string, isPositive: boolean, rating: number, expectation: string, details: string, addedBy: string};
 type expectedPostType = {isPositive: boolean, rating: number, expectation: string, details: string};
 type expectedUser = {username: string, password: string};
 const validExpectations = ['strongly disagree', 'disagree', 'neither agree nor disagree', 'agree', 'strongly agree'];
@@ -32,8 +32,8 @@ export default {
             return {success: true, data: (<expectedGetType[]>result.data?.feedbacks || [])
                 .map((f) => 
                     f.isPositive
-                    ? new PositiveFeedback(f.id, f.rating, f.expectation, f.details)
-                    : new NegativeFeedback(f.id, f.rating, f.expectation, f.details)
+                    ? new PositiveFeedback(f.id, f.rating, f.expectation, f.details, f.addedBy)
+                    : new NegativeFeedback(f.id, f.rating, f.expectation, f.details, f.addedBy)
                 ) || []};
         }catch(err){
             console.error(err);
