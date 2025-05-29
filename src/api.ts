@@ -44,7 +44,9 @@ export default {
     async addNewFeedback(input: expectedPostType){
         try{
             if(!validateFeedback(input)) return {success: false, message: 'Failed to add feedback due to invalid input'};
-            const result = await this.api.post(`/feedback`, {feedbackProps: input});
+            //append logged in username to payload
+            const user = await this.checkAuth();
+            const result = await this.api.post(`/feedback`, {feedbackProps: {...input, addedBy: user.username || 'Unknown'}});
             return {success: true, message: result.data};
         }catch(err){
             console.error(err);
