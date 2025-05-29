@@ -24,6 +24,7 @@
                 const result = await api.registerUser({username: usernameInput.value, password: passwordInput.value});
                 if(result.success){
                     resetFields();
+                    emit('success', 'Successfully registered new user');
                 }else{
                     emit('error', result.message);
                 }

@@ -82,7 +82,7 @@ export default {
             if(!/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d@$!%*?&]{6,32}$/.test(user.password)) return {success: false, message: 'Invalid password field'};
 
             const result = await this.api.post(`/auth/login`, user);
-            return {success: true, message: result.data};
+            return {success: true, message: result.data.message};
         }catch(err){
             console.error(err);
             return {success: false, message: 'Failed to login user'};

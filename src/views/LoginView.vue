@@ -22,12 +22,18 @@
         passwordInput.value = '';
     }
 
+    function successfulRegister(message: string){
+        showRegister.value = false;
+        emit('success', message);
+    }
+
     async function login(){
         const result = await api.login({username: usernameInput.value, password: passwordInput.value});
         if(!result.success){
             resetFields();
             return emit('error', result.message);
         }
+        emit('success', result.message);
         router.push('/');
     }
 </script>
@@ -55,7 +61,11 @@
         </div>
         <span class="button submit-button" @click="login">Login</span>
         <h3>No account? <span class="button" @click="toggleRegister">{{ registrationButtonName }}</span></h3>
-        <RegistrationComponent @error="(message) => {$emit('error', message)}" v-if="showRegister" />
+        <RegistrationComponent 
+        @error="(message) => {$emit('error', message)}" 
+        @success="successfulRegister"
+        v-if="showRegister" 
+        />
     </div>
 </template>
 

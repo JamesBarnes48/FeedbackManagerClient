@@ -18,7 +18,7 @@
 </script>
 
 <template>
-  <ErrorBanner v-model:show="showBanner" :message="bannerMessage" :type="bannerType" />
+  <InfoBanner v-model:show="showBanner" :message="bannerMessage" :type="bannerType" />
   <RouterView @error="triggerError" @success="triggerSuccess" />
 </template>
 
