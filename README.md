@@ -8,5 +8,11 @@ This is the frontend of this project, written primarily in Vue with Typescript a
 
 It also has an Express backend written using Typescript in a seperate repo here: https://github.com/JamesBarnes48/FeedbackManagerServer
 
+# Setting up your Environment
+
+First of all you'll need to run 'npm i' as always to install packages.
+
+Setup of this project is much simpler than the server but it does require the backend to be up and running to work. Set that up and make sure its running in the background so our api requests can reach it. Also in api.ts ensure your baseURL is set to where your backend is running on. In my case its localhost:3000. With this up and running this clientside can manage itself.
+
 # Running the project
 Can be run in dev using 'npm run dev' which maps to 'vite'. Vite allows you to build the 'dist' folder for eventually deploying to production
