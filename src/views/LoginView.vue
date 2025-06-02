@@ -33,8 +33,11 @@
             resetFields();
             return emit('error', result.message);
         }
-        emit('success', result.message);
-        router.push('/');
+        //set small delay to ensure token is stored properly
+        setTimeout(() => {
+            emit('success', result.message);
+            router.push('/');
+        }, 300);
     }
 </script>
 
