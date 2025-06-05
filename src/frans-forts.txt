@@ -1,0 +1,7 @@
+account registration doesnt allow you to copy and paste when you want to reenter your password
+password does not come up as asterisks - potential security risk
+login didnt redirect me 
+feedback form was really easy to submit
+could do with a suggestions on what could be done differently box
+think the most recent feedback should be at the top
+would like a summary box that takes all the feedbacks into account and produces an average

@@ -53,7 +53,7 @@
             <label>Password</label>
             <v-tooltip location="top" text="Password must contain at least one uppercase letter, lowercase letter and digit and be at least 6 characters long">
                 <template v-slot:activator="{ props }">
-                    <input v-bind="props" v-model="passwordInput" type="text">
+                    <input v-bind="props" v-model="passwordInput" type="password">
                 </template>
             </v-tooltip>
         </div>
