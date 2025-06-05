@@ -5,5 +5,6 @@ export interface Feedback{
     details: string,
     addedBy: string,
     className: string,
-    toString(): string
+    toString(): string,
+    getFields(): Array<string>
 }

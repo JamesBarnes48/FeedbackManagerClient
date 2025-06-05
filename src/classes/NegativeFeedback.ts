@@ -13,4 +13,8 @@ export class NegativeFeedback implements Feedback{
     toString(): string{
         return `The user did not enjoy the product. They ${this.expectation.toLocaleLowerCase()} that it met their expectations. They rated it ${this.rating}/5 stars and had this to say: ${this.details}`;
     }
+
+    getFields(): Array<string>{
+        return ['rating', 'expectation', 'details', 'addedBy'];
+    }
 }
