@@ -2,6 +2,7 @@
     import { onMounted, ref } from 'vue';
     import FeedbackInput from '../components/FeedbackInput.vue'
     import AllFeedbackContainer from '../components/AllFeedbackContainer.vue';
+    import OverviewComponent from '../components/OverviewComponent.vue';
     import { useRouter } from 'vue-router';
     import api from '../api';
     import type { Feedback } from '../interfaces/Feedback';
@@ -44,6 +45,8 @@
         <FeedbackInput @error="(message) => {$emit('error', message)}" @reload="reload" />
         <h3 class="subtitle">Your Feedback:</h3>
         <AllFeedbackContainer :feedbackArray="feedbacks" @error="(message) => {$emit('error', message)}" @reload="reload" />
+        <h3 class="subtitle">An Overview</h3>
+        <OverviewComponent :feedbackArray="feedbacks"/>
         <span class="button" @click="logout">Logout</span>
     </div>
 </template>
