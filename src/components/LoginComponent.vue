@@ -43,7 +43,7 @@
     <div class="form-container">
         <div class="input-row">
             <label>Username</label>
-            <v-tooltip location="top" text="Username must only consist of letters, digits and underscores and be at least 3 characters long">
+            <v-tooltip location="top" text="Valid characters include letters, digits and underscores. Must be at least 3 characters long">
                 <template v-slot:activator="{ props }">
                     <input v-bind="props" v-model="usernameInput" type="text">
                 </template>
