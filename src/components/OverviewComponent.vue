@@ -25,9 +25,28 @@
                 const sum = collectedValues.value['rating'].reduce((acc: number, current: number) => acc + +current, 0);
                 return (sum / collectedValues.value['rating'].length) || 'N/A';
             })
+
+            const expectationLookup = {
+                'strongly disagree': 1,
+                'disagree': 2,
+                'neither agree nor disagree': 3,
+                'agree': 4,
+                'strongly agree': 5,
+            }
+
+            const averageExpectation = computed(() => {
+                //would be easier if expectation was a number instead
+                const sum = collectedValues.value['expectation'].reduce((acc: number, current: string) => acc + expectationLookup[current as keyof typeof expectationLookup], 0);
+                if(!sum) return 'N/A';
+
+                const average = Math.round(sum / collectedValues.value['expectation'].length);
+                return Object.keys(expectationLookup).find((key) => expectationLookup[key as keyof typeof expectationLookup] === average) || 'N/A';
+            })
+
             return {
                 collectedValues,
-                averageRating
+                averageRating,
+                averageExpectation
             }
         }
     }
@@ -40,6 +59,7 @@
             <h3>Average Rating:</h3>
             <p>{{ averageRating }}</p>
         </div>
+        <p v-if="averageExpectation !== 'N/A'">The general consensus was that people <span style="font-weight: 700">{{averageExpectation}}</span> that he product met expectations</p>
     </div>
 </template>
 
