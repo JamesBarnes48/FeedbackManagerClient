@@ -28,7 +28,7 @@
                 setTimeout(() => {
                     emit('success', result.message);
                     router.push('/');
-                }, 300);
+                }, 1000);
             }
             return {
                 usernameInput,
