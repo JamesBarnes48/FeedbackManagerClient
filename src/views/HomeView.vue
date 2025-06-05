@@ -21,7 +21,8 @@
     async function getFeedback(){
         feedbacks.value = [];
         const apiResult = await api.getFeedback();
-        feedbacks.value = apiResult.data || [];
+        const feedback = apiResult.data || [];
+        feedbacks.value = feedback.reverse();
         if(apiResult.error) emit('error', apiResult.error) //make a popup that says an error occurred
     }
 
