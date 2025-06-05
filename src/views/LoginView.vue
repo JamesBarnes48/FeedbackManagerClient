@@ -19,7 +19,7 @@
 </script>
 
 <template>
-    <div>
+    <div class="center-content">
         <h1 class="page-title">Welcome to Feedback Manager</h1>
         <LoginComponent
          @error="(message) => {$emit('error', message)}"
