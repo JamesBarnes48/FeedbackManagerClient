@@ -2,6 +2,7 @@
     import type { Feedback } from '../interfaces/Feedback';
     import type { PropType } from 'vue';
     import { watch, computed, ref } from 'vue';
+    import { PositiveFeedback } from '../classes/PositiveFeedback';
 
     export default {
         name: 'OverviewComponent',
@@ -11,9 +12,12 @@
         },
         setup(props) {
             //watch feedback and group up properties for each manipulation
-            const collectedValues = ref<Record<string, any>>({rating: [], expectation: [], details: [], addedBy: []});
+            const collectedValues = ref<Record<string, any>>({enjoyment: [], rating: [], expectation: [], details: [], addedBy: []});
             watch(() => props.feedbackArray, (newFeedbackArray) => {
+                collectedValues.value = {enjoyment: [], rating: [], expectation: [], details: [], addedBy: []};
+
                 newFeedbackArray.forEach((newFeedback) => {
+                    collectedValues.value['enjoyment'].push(newFeedback instanceof PositiveFeedback? true: false);
                     newFeedback.getFields().forEach((field) => {
                         if(!newFeedback[field as keyof Feedback]) return;
                         collectedValues.value[field] = collectedValues.value[field]? [...collectedValues.value[field], newFeedback[field as keyof Feedback]]: [newFeedback[field as keyof Feedback]];
@@ -43,10 +47,20 @@
                 return Object.keys(expectationLookup).find((key) => expectationLookup[key as keyof typeof expectationLookup] === average) || 'N/A';
             })
 
+            const mostPopularEnjoyment = computed(() => {
+                let counts = {true: 0, false: 0};
+                collectedValues.value['enjoyment'].forEach((val: boolean) => {
+                    if(val) counts.true++;
+                    else counts.false++;
+                });
+                return counts.true === counts.false? '50/50': counts.true > counts.false? 'Positive': 'Negative';
+            })
+
             return {
                 collectedValues,
                 averageRating,
-                averageExpectation
+                averageExpectation,
+                mostPopularEnjoyment
             }
         }
     }
@@ -54,7 +68,10 @@
 
 <template>
     <div class="overview-container">
-        <h3 @click="() => {console.log(collectedValues)}">do it</h3>
+        <div class="input-row">
+            <h3>Mostly positive or negative:</h3>
+            <p>{{ mostPopularEnjoyment }}</p>
+        </div>
         <div class="input-row">
             <h3>Average Rating:</h3>
             <p>{{ averageRating }}</p>
