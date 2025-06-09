@@ -30,7 +30,6 @@
 
             const getExpectationMarkerPosition = computed(() => {
                 if(!feedback.expectation) return;
-                //keyof typeof expectationMarkerPositions === 'strongly disagree' |'disagree' | 'neither agree nor disagree' | 'agree' | 'strongly agree'
                 const lookup = expectationMarkerPositions[feedback.expectation as keyof typeof expectationMarkerPositions];
                 return lookup.orientation === 'right'? {right: `${lookup.magnitude}%`}: {left: `${lookup.magnitude}%`};
             })
